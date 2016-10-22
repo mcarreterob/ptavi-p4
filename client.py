@@ -12,14 +12,17 @@ import socket
 #PORT = 6001
 #LINE = '¡Hola mundo!'
 
-server = sys.argv[1]
+ip = sys.argv[1]
 port = int(sys.argv[2])
-line = ' '.join(sys.argv[3:])
+metodo = sys.argv[3]
+line = ' '.join(sys.argv[4:])
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
                    # tipo de red, tipo de paquete
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
-    my_socket.connect((server, port))
+    my_socket.connect((ip, port))
+    if metodo == 'REGISTRER':
+        line = 'REGISTRER sip:' + line + ' SIP/2.0\r\n\r\n'
     print("Enviando:", line)             # bytes
     my_socket.send(bytes(line, 'utf-8') + b'\r\n')
     data = my_socket.recv(1024)
