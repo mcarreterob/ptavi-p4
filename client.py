@@ -21,8 +21,8 @@ line = ' '.join(sys.argv[4:])
                    # tipo de red, tipo de paquete
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.connect((ip, port))
-    if metodo == 'REGISTRER':
-        line = 'REGISTRER sip:' + line + ' SIP/2.0\r\n\r\n'
+    if metodo == 'REGISTER':
+        line = 'REGISTER sip:' + line + ' SIP/2.0\r\n\r\n'
     print("Enviando:", line)             # bytes
     my_socket.send(bytes(line, 'utf-8') + b'\r\n')
     data = my_socket.recv(1024)
