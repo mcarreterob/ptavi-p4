@@ -18,11 +18,14 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
         #self.wfile.write(b"Hemos recibido tu peticion")
         print('IP client: ' + self.client_address[0])
         print('PORT client: ' + str(self.client_address[1]))
-        cliente = self.rfile.read().decode('utf-8').split()
-        #print(cliente[1])
+        cliente = self.rfile.read().decode('utf-8').split() # line client.py
+        print(cliente)
         if cliente[0] == 'REGISTER':
-            self.data_client[cliente[1]] = self.client_address[0]
-            self.wfile.write(b'SIP/2.0 200 OK\r\n\r\n')
+            self.data_client[cliente[1]] = self.client_address[0]            
+        if cliente[-1] == 0:
+            del self.data_client[cliente[1]]
+        print(self.data_client)
+        self.wfile.write(b'SIP/2.0 200 OK\r\n\r\n')
         #for line in self.rfile:
        #     print("El cliente nos manda ", line.decode('utf-8'))
 
