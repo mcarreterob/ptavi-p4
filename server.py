@@ -21,7 +21,7 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
         print('PORT client: ' + str(self.client_address[1]))
         self.cliente = self.rfile.read().decode('utf-8').split()
         print(self.cliente[-1])
-        
+
         if self.cliente[0] == 'REGISTER':
             self.json2registered()
             self.now = time.time()
@@ -38,7 +38,7 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
     def delete(self):
         """Metodo que eliminara un cliente del diccionario si ha expirado"""
         tmpList = []
-        self.t_actual = time.strftime('%Y-%m-%d %H:%M:%S', 
+        self.t_actual = time.strftime('%Y-%m-%d %H:%M:%S',
                                       time.gmtime(time.time()))
         for client in self.data_client:
             self.expire = self.data_client[client][1]
@@ -53,7 +53,7 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
 
 
     def register2json(self):
-        """Metodo con el que cada vez que un usuario se registre o se de 
+        """Metodo con el que cada vez que un usuario se registre o se de
         de baja, se imprimira en un fichero json con informacion sobre el
         usuario, su direccion y la hora de expiracion"""
         json.dump(self.data_client, open('registered.json', 'w'))
