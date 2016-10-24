@@ -51,7 +51,6 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
             print('ELIMINADO')
         self.register2json()
 
-
     def register2json(self):
         """Metodo con el que cada vez que un usuario se registre o se de
         de baja, se imprimira en un fichero json con informacion sobre el
