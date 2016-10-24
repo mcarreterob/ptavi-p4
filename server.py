@@ -31,10 +31,6 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
             self.data_client[self.cliente[1]] = self.client_list
             self.delete()
             self.client_list = []
-        #if int(self.cliente[-1]) == 0:
-        #    print(self.data_client)
-        #    print('polla')
-        #    del self.data_client[self.cliente[1]]
         print(self.data_client)
         self.wfile.write(b'SIP/2.0 200 OK\r\n\r\n')
         self.register2json()
@@ -60,13 +56,11 @@ class SIPRegistrerHandler(socketserver.DatagramRequestHandler):
         """Metodo con el que cada vez que un usuario se registre o se de 
         de baja, se imprimira en un fichero json con informacion sobre el
         usuario, su direccion y la hora de expiracion"""
-       # self.t_actualbonito = time.strftime('%Y-%m-%d %H:%M:%S', 
-        #                              time.gmtime(time.time()))
         json.dump(self.data_client, open('registered.json', 'w'))
 
     def json2registered(self):
         """Metodo que comprobara si hay fichero json. Si hay, leera su
-        contenido y lo usara como diccionario de usuarios. Si no hay, se 
+        contenido y lo usara como diccionario de usuarios. Si no hay, se
         ejecutara como si no hubiera fichero json"""
         try:
             with open('registered.json') as client_file:
